@@ -19,6 +19,12 @@ public class PlayerController : MonoBehaviour {
 	Animator myAnim;
 	bool facingRight;
 
+	// for shooting
+	public Transform rocketFireLocation;
+	public GameObject rocket;
+	public float fireRate = 0.5f;
+	public float nextFire = 0f;
+
 	void Start () {
 		myRB = GetComponent<Rigidbody2D> ();
 		myAnim = GetComponent<Animator> ();
@@ -31,6 +37,11 @@ public class PlayerController : MonoBehaviour {
 			grounded = false;
 			myAnim.SetBool ("IsGrounded", grounded);
 			myRB.AddForce (new Vector2 (0, jumpHeight));
+		}
+
+		//player shooting
+		if (Input.GetAxisRaw ("Fire1") > 0) {
+			fireRocket ();
 		}
 	}
 
@@ -63,5 +74,16 @@ public class PlayerController : MonoBehaviour {
 		transform.localScale = theScale;
 	}
 
+	void fireRocket() {
+		if (Time.time > nextFire) {
+			nextFire = Time.time + fireRate;
+			if (facingRight) {
+				Instantiate (rocket, rocketFireLocation.position, Quaternion.Euler (new Vector3 (0, 0, 0)));
+			} else if (!facingRight) {
+				Instantiate (rocket, rocketFireLocation.position, Quaternion.Euler (new Vector3 (0, 0, 180f)));
+			}
+		}
+	}
+		
 
 }
