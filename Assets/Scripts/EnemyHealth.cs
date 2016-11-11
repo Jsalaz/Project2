@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class EnemyHealth : MonoBehaviour {
 
@@ -7,9 +8,19 @@ public class EnemyHealth : MonoBehaviour {
 
 	float currentHealth;
 
+	//enemyHealth UI
+	public GameObject enemyDeathFX;
+	public Slider enemySlider;
+	//enemyAudio
+	private AudioSource enemyAS;
+
 	// Use this for initialization
 	void Start () {
 		currentHealth = enemyMaxHealth;
+		enemySlider.maxValue = enemyMaxHealth;
+		enemySlider.value = currentHealth;
+		enemySlider.gameObject.SetActive (false);
+		enemyAS = GetComponent<AudioSource> ();
 	}
 	
 	// Update is called once per frame
@@ -18,12 +29,19 @@ public class EnemyHealth : MonoBehaviour {
 	}
 
 	public void addDamage(float damage){
+		enemySlider.gameObject.SetActive (true);
+
 		currentHealth -= damage;
-		if (currentHealth <= 0)
+		enemyAS.Play ();
+
+		enemySlider.value = currentHealth;
+		if (currentHealth <= 0) {
 			makeDead ();
+		}
 	}
 
 	void makeDead(){
 		Destroy (gameObject);
+		Instantiate (enemyDeathFX, transform.position, transform.rotation);
 	}
 }
