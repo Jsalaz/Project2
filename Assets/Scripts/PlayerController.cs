@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour {
 
 	// jetpack variables
 	public float jetpackVelocity;
+	public float maxJetpackVelocity;
 
 	Rigidbody2D myRB;
 	Animator myAnim;
@@ -79,7 +80,7 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		//Jetpack
-		if (Input.GetKey(KeyCode.LeftShift)) {
+		if (Input.GetKey(KeyCode.LeftShift) && myRB.velocity.y < maxJetpackVelocity) {
 			myRB.AddForce(new Vector2(0,jetpackVelocity));
 		}
 
