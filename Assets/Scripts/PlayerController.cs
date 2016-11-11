@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour {
 	// Use this for initialization
 	//movement variables
 	public float maxSpeed;
+	public float runSpeed;
 
 	//jumping variables
 	bool grounded = false;
@@ -14,6 +15,8 @@ public class PlayerController : MonoBehaviour {
 	public Transform groundCheck;
 	public float jumpHeight;
 
+	// jetpack variables
+	public float jetpackVelocity;
 
 	Rigidbody2D myRB;
 	Animator myAnim;
@@ -33,11 +36,6 @@ public class PlayerController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (grounded && Input.GetAxis ("Jump") > 0) {
-			grounded = false;
-			myAnim.SetBool ("IsGrounded", grounded);
-			myRB.AddForce (new Vector2 (0, jumpHeight));
-		}
 
 		//player shooting
 		if (Input.GetAxisRaw ("Fire1") > 0) {
@@ -64,8 +62,29 @@ public class PlayerController : MonoBehaviour {
 		} else if (move < 0 && facingRight) {
 			flip ();
 		}
-	}
+			
+		//Sprinting
+		/*if (grounded && Input.GetKey (KeyCode.LeftShift)) {
+			myAnim.SetFloat ("Speed", Mathf.Abs (move));
+			myRB.velocity = new Vector2 (move * runSpeed, myRB.velocity.y);
+		}
+		*/
+			
+		// Jumping
+		if (grounded && Input.GetAxis ("Jump") > 0) {
+			grounded = false;
+			myAnim.SetBool ("IsGrounded", grounded);
+			myRB.AddForce (new Vector2 (0, jumpHeight));
+			//wait to use Jetpack
+		}
 
+		//Jetpack
+		if (!grounded && Input.GetKey(KeyCode.LeftShift)) {
+			myRB.AddForce(new Vector2(0,jetpackVelocity));
+		}
+
+	}
+		
 
 	void flip() {
 		facingRight = !facingRight;
