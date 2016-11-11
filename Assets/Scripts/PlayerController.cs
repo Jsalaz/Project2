@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		//Jetpack
-		if (!grounded && Input.GetKey(KeyCode.LeftShift)) {
+		if (Input.GetKey(KeyCode.LeftShift)) {
 			myRB.AddForce(new Vector2(0,jetpackVelocity));
 		}
 
