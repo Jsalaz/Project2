@@ -19,7 +19,9 @@ public class PlayerHealth : MonoBehaviour {
 	private bool isDamaged;
 	private Color damageColor = new Color(0f,0f,0f,0.5f);
 	private float damageColorShift = 5f;
+	public Canvas GameOver;
 
+	//sound
 	private AudioSource playerSoundSource;
 
 	// Use this for initialization
@@ -32,6 +34,8 @@ public class PlayerHealth : MonoBehaviour {
 		healthSlider.maxValue = playerMaxHealth;
 		healthSlider.value = playerMaxHealth;
 		isDamaged = false;
+		GameOver.gameObject.SetActive (false);
+
 		//audio
 		playerSoundSource = GetComponent<AudioSource>();
 
@@ -68,6 +72,7 @@ public class PlayerHealth : MonoBehaviour {
 
 	public void makeDead(){
 		Instantiate (deathEffects, transform.position, transform.rotation);
+		GameOver.gameObject.SetActive (true);
 		Destroy (gameObject);
 	}
 

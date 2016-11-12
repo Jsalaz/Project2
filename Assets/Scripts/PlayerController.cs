@@ -31,17 +31,28 @@ public class PlayerController : MonoBehaviour {
 	public float fireRate = 0.5f;
 	public float nextFire = 0f;
 
+	//for startOnButton
+	private bool hasStarted = false;
+	//private bool canFire = false;
+
 	void Start () {
+	//	myRB = GetComponent<Rigidbody2D> ();
+	//	myAnim = GetComponent<Animator> ();
+	//	facingRight = true;
+	}
+
+	public void startOnButton(){
 		myRB = GetComponent<Rigidbody2D> ();
 		myAnim = GetComponent<Animator> ();
 		facingRight = true;
+		hasStarted = true;
 	}
-
+		
 	// Update is called once per frame
 	void Update () {
 
 		//player shooting
-		if (Input.GetAxisRaw ("Fire1") > 0) {
+		if ((Input.GetAxisRaw ("Fire1") > 0) && hasStarted) {
 			fireRocket ();
 		}
 	}
@@ -49,41 +60,42 @@ public class PlayerController : MonoBehaviour {
 
 	void FixedUpdate () {
 
-		//check if we are grounded, if not, then we are falling
-		grounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
-		myAnim.SetBool ("IsGrounded", grounded);
+		if (hasStarted) {
+			//check if we are grounded, if not, then we are falling
+			grounded = Physics2D.OverlapCircle (groundCheck.position, groundCheckRadius, groundLayer);
+			myAnim.SetBool ("IsGrounded", grounded);
+			myAnim.SetFloat ("VerticalSpeed", myRB.velocity.y);
+		
 
-		myAnim.SetFloat ("VerticalSpeed", myRB.velocity.y);
+			float move = Input.GetAxis ("Horizontal");
+			myAnim.SetFloat ("Speed", Mathf.Abs (move));
+			myRB.velocity = new Vector2 (move * maxSpeed, myRB.velocity.y);
 
-
-		float move = Input.GetAxis ("Horizontal");
-		myAnim.SetFloat ("Speed", Mathf.Abs (move));
-		myRB.velocity = new Vector2 (move * maxSpeed, myRB.velocity.y);
-
-		if (move > 0 && !facingRight) {
-			flip ();
-		} else if (move < 0 && facingRight) {
-			flip ();
-		}
+			if (move > 0 && !facingRight) {
+				flip ();
+			} else if (move < 0 && facingRight) {
+				flip ();
+			}
 			
-		//Sprinting
-		/*if (grounded && Input.GetKey (KeyCode.LeftShift)) {
+			//Sprinting
+			/*if (grounded && Input.GetKey (KeyCode.LeftShift)) {
 			myAnim.SetFloat ("Speed", Mathf.Abs (move));
 			myRB.velocity = new Vector2 (move * runSpeed, myRB.velocity.y);
 		}
 		*/
 			
-		// Jumping
-		if (grounded && Input.GetAxis ("Jump") > 0) {
-			grounded = false;
-			myAnim.SetBool ("IsGrounded", grounded);
-			myRB.AddForce (new Vector2 (0, jumpHeight));
-		}
+			// Jumping
+			if (grounded && Input.GetAxis ("Jump") > 0) {
+				grounded = false;
+				myAnim.SetBool ("IsGrounded", grounded);
+				myRB.AddForce (new Vector2 (0, jumpHeight));
+			}
 
-		//Jetpack
-		if (Input.GetKey(KeyCode.LeftShift) && myRB.velocity.y < maxJetpackVelocity) {
-			myRB.AddForce(new Vector2(0,jetpackVelocity));
-			Instantiate (jetpackPS, jetpackParticleLocation, false);
+			//Jetpack
+			if (Input.GetKey (KeyCode.LeftShift) && myRB.velocity.y < maxJetpackVelocity) {
+				myRB.AddForce (new Vector2 (0, jetpackVelocity));
+				Instantiate (jetpackPS, jetpackParticleLocation, false);
+			}
 		}
 
 	}
