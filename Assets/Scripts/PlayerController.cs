@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
+
 
 public class PlayerController : MonoBehaviour {
 
-	// Use this for initialization
 	//movement variables
 	public float maxSpeed;
-	public float runSpeed;
+	public float sprintSpeed;
 
 	//jumping variables
 	bool grounded = false;
@@ -20,6 +21,13 @@ public class PlayerController : MonoBehaviour {
 	public float maxJetpackVelocity;
 	public GameObject jetpackPS;
 	public Transform jetpackParticleLocation;
+
+	//jetpack HUD
+	float currentFuel;
+	public float jetpackMaxFuel;
+	public Slider jetpackSlider;
+	public float fuelRechargeRate;
+	public float fuelBurnRate;
 
 	Rigidbody2D myRB;
 	Animator myAnim;
@@ -46,6 +54,10 @@ public class PlayerController : MonoBehaviour {
 		myAnim = GetComponent<Animator> ();
 		facingRight = true;
 		hasStarted = true;
+
+		currentFuel = jetpackMaxFuel;
+		jetpackSlider.maxValue = jetpackMaxFuel;
+		jetpackSlider.value = jetpackMaxFuel;
 	}
 		
 	// Update is called once per frame
@@ -77,10 +89,10 @@ public class PlayerController : MonoBehaviour {
 				flip ();
 			}
 			
-			//Sprinting
+			//Sprinting, doesnt affect jumping, so kind of pointless
 			/*if (grounded && Input.GetKey (KeyCode.LeftShift)) {
 			myAnim.SetFloat ("Speed", Mathf.Abs (move));
-			myRB.velocity = new Vector2 (move * runSpeed, myRB.velocity.y);
+			myRB.velocity = new Vector2 (move * sprintSpeed, myRB.velocity.y);
 		}
 		*/
 			
@@ -92,13 +104,21 @@ public class PlayerController : MonoBehaviour {
 			}
 
 			//Jetpack
-			if (Input.GetKey (KeyCode.LeftShift) && myRB.velocity.y < maxJetpackVelocity) {
+			if (Input.GetKey (KeyCode.LeftShift) && myRB.velocity.y < maxJetpackVelocity
+			&& currentFuel > 0) {
+				currentFuel -= fuelBurnRate;
+				jetpackSlider.value = currentFuel;
 				myRB.AddForce (new Vector2 (0, jetpackVelocity));
 				Instantiate (jetpackPS, jetpackParticleLocation, false);
+				}
+
+			if (!Input.GetKey (KeyCode.LeftShift) && currentFuel <= jetpackMaxFuel) {
+				currentFuel += fuelRechargeRate;
+				jetpackSlider.value = currentFuel;
+				}
 			}
 		}
-
-	}
+		
 		
 
 	void flip() {

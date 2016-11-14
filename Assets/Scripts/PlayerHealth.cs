@@ -8,7 +8,6 @@ public class PlayerHealth : MonoBehaviour {
 	public GameObject deathEffects;
 	public AudioClip playerSound;
 
-
 	float currentHealth;
 
 	PlayerController controlMovement;
@@ -36,6 +35,7 @@ public class PlayerHealth : MonoBehaviour {
 		isDamaged = false;
 		GameOver.gameObject.SetActive (false);
 
+
 		//audio
 		playerSoundSource = GetComponent<AudioSource>();
 
@@ -52,6 +52,7 @@ public class PlayerHealth : MonoBehaviour {
 		isDamaged = false;
 	}
 
+
 	public void addDamage(float damage){
 		if (damage <= 0)
 			return;
@@ -60,8 +61,8 @@ public class PlayerHealth : MonoBehaviour {
 		healthSlider.value = currentHealth;
 		isDamaged = true;
 
-		//playerSoundSource.clip = playerSound;
-		//playerSoundSource.Play ();
+		playerSoundSource.clip = playerSound;
+		playerSoundSource.Play ();
 
 		playerSoundSource.PlayOneShot (playerSound);
 

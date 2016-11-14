@@ -12,7 +12,7 @@ public class EnemyHealth : MonoBehaviour {
 	public GameObject enemyDeathFX;
 	public Slider enemySlider;
 	//enemyAudio
-	private AudioSource enemyAS;
+	public AudioSource enemyAS;
 
 	// Use this for initialization
 	void Start () {
@@ -32,7 +32,7 @@ public class EnemyHealth : MonoBehaviour {
 		enemySlider.gameObject.SetActive (true);
 
 		currentHealth -= damage;
-		enemyAS.Play ();
+		//enemyAS.Play ();
 
 		enemySlider.value = currentHealth;
 		if (currentHealth <= 0) {

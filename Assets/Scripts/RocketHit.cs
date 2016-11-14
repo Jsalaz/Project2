@@ -28,6 +28,11 @@ public class RocketHit : MonoBehaviour {
 				hurtEnemy.addDamage (weaponDamage);
 			}
 		}
+		if (other.tag == "Shootable") {
+			myPC.removeForce ();
+			Instantiate (explosionEffect, transform.position, transform.rotation);
+			Destroy (gameObject);
+		}
 	}
 
 	void OnTriggerStay2D(Collider2D other){
@@ -40,5 +45,10 @@ public class RocketHit : MonoBehaviour {
 				hurtEnemy.addDamage (weaponDamage);
 			}
 	}
+		if (other.tag == "Shootable") {
+			myPC.removeForce ();
+			Instantiate (explosionEffect, transform.position, transform.rotation);
+			Destroy (gameObject);
+		}
 }
 }
