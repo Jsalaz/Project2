@@ -3355,9 +3355,9 @@ Prefab:
 
         Jump: Space
 
-        Jetpack: Left Shift
+        Jetpack: W
 
-        Shot: Left Mouse'
+        Shoot: Left Mouse'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7454b2d1ad819c0489def681f5a358d1, type: 2}
@@ -3425,7 +3425,7 @@ Transform:
   - {fileID: 886334367}
   - {fileID: 52817995}
   - {fileID: 701079872}
-  - {fileID: 997663705}
+  - {fileID: 1930371483}
   - {fileID: 158528292}
   - {fileID: 1013185149}
   - {fileID: 1252125497}
@@ -3434,7 +3434,7 @@ Transform:
   - {fileID: 1995905353}
   - {fileID: 362091433}
   - {fileID: 579449994}
-  - {fileID: 1930371483}
+  - {fileID: 997663705}
   - {fileID: 916938993}
   - {fileID: 2011074040}
   m_Father: {fileID: 0}

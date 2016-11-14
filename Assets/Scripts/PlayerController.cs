@@ -97,14 +97,14 @@ public class PlayerController : MonoBehaviour {
 		*/
 			
 			// Jumping
-			if (grounded && Input.GetAxis ("Jump") > 0) {
+			if (grounded && Input.GetKey(KeyCode.Space)) {
 				grounded = false;
 				myAnim.SetBool ("IsGrounded", grounded);
 				myRB.AddForce (new Vector2 (0, jumpHeight));
 			}
 
 			//Jetpack
-			if (Input.GetKey (KeyCode.LeftShift) && myRB.velocity.y < maxJetpackVelocity
+			if (Input.GetKey (KeyCode.W) && myRB.velocity.y < maxJetpackVelocity
 			&& currentFuel > 0) {
 				currentFuel -= fuelBurnRate;
 				jetpackSlider.value = currentFuel;
@@ -112,7 +112,7 @@ public class PlayerController : MonoBehaviour {
 				Instantiate (jetpackPS, jetpackParticleLocation, false);
 				}
 
-			if (!Input.GetKey (KeyCode.LeftShift) && currentFuel <= jetpackMaxFuel) {
+			if (!Input.GetKey (KeyCode.W) && currentFuel <= jetpackMaxFuel) {
 				currentFuel += fuelRechargeRate;
 				jetpackSlider.value = currentFuel;
 				}
