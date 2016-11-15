@@ -34,7 +34,7 @@ public class HogMovementController : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D other){
-		if (other.tag == "Player") {
+		if (other.tag == "Player" && gameObject != null) {
 			if (facingRight && other.transform.position.x < transform.position.x) {
 				flipFacing ();
 			} else if (!facingRight && other.transform.position.x > transform.position.x) {
@@ -48,9 +48,10 @@ public class HogMovementController : MonoBehaviour {
 
 	void OnTriggerStay2D(Collider2D other){
 		if(other.tag == "Player"){
-			if(startCharge >= Time.time){
+			if(startCharge >= Time.time && gameObject != null){
 				if (!facingRight) {
 					hogRB.AddForce (new Vector2 (-1, 0) * hogSpeed);
+					hogAnimator.SetBool ("isCharging", isCharging);
 				} else {
 					hogRB.AddForce(new Vector2(1, 0)*hogSpeed);
 					hogAnimator.SetBool ("isCharging", isCharging);
@@ -60,7 +61,7 @@ public class HogMovementController : MonoBehaviour {
 	}
 
 	void OnTriggerExit2D(Collider2D other){
-		if (other.tag == "Player") {
+		if (other.tag == "Player" && gameObject != null) {
 			canFlip = true;
 			isCharging = false;
 			hogRB.velocity = new Vector2 (0f, 0f);

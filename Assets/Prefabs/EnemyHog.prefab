@@ -22,9 +22,9 @@ GameObject:
   - 50: {fileID: 50000014229894720}
   - 61: {fileID: 61000010146703958}
   - 114: {fileID: 114000010277758590}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: EnemyHog
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41,7 +41,7 @@ GameObject:
   - 114: {fileID: 114000010751479662}
   - 114: {fileID: 114000011162593602}
   - 225: {fileID: 225000011173983014}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: EnemyUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   m_Component:
   - 224: {fileID: 224000010944865020}
   - 114: {fileID: 114000011456061320}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: enemyHealthSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ GameObject:
   - 224: {fileID: 224000010576878214}
   - 222: {fileID: 222000013207588772}
   - 114: {fileID: 114000012823428480}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 224: {fileID: 224000011467191580}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,7 +125,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010053996070}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 55.0872, y: -2.01, z: 0}
+  m_LocalPosition: {x: 50.411667, y: -0.7725899, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -156,13 +156,13 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &58000010389034902
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -204,7 +204,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0.25}
   serializedVersion: 2
-  m_Size: {x: 4, y: 1}
+  m_Size: {x: 7.36, y: 1}
 --- !u!82 &82000010029593190
 AudioSource:
   m_ObjectHideFlags: 1
@@ -307,9 +307,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67c19668c28ddec4bbbdc169595f3a40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hogSpeed: 0
-  hogGraphic: {fileID: 0}
-  chargeTime: 0
+  hogSpeed: 3
+  hogGraphic: {fileID: 1000010053996070}
+  chargeTime: 3
 --- !u!114 &114000010395540732
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -321,7 +321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7602471082758d84aba960a1941a5a0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 5
   damageRate: 0.5
   pushBackForce: 15
 --- !u!114 &114000010751479662
@@ -451,6 +451,7 @@ MonoBehaviour:
   enemyDeathFX: {fileID: 1000013014472114, guid: 73a2f7d4a0a8f6f468b60a02e74b08a4,
     type: 2}
   enemySlider: {fileID: 114000011456061320}
+  enemyAS: {fileID: 82000010029593190}
 --- !u!212 &212000013807563052
 SpriteRenderer:
   m_ObjectHideFlags: 1

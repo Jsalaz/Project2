@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour {
 	public float nextFire = 0f;
 
 	//for startOnButton
-	private bool hasStarted = false;
+	public bool hasStarted = false;
 	//private bool canFire = false;
 
 	void Start () {

@@ -23,6 +23,9 @@ public class CameraFollow : MonoBehaviour {
 	}
 
 	void LateUpdate(){
+		if (targetObject == null) {
+			return;
+		}
 		meCamera.position = new Vector3(Mathf.SmoothStep(meCamera.position.x, targetObject.position.x + followOffset.x, Time.deltaTime * smoothFollowAmount),
                                         Mathf.SmoothStep(meCamera.position.y, targetObject.position.y + followOffset.y, Time.deltaTime * smoothFollowAmount) ,
                                         Mathf.SmoothStep(meCamera.position.z, targetObject.position.z + followOffset.z, Time.deltaTime * smoothFollowAmount));		//follow the player

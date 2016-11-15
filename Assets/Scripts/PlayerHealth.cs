@@ -7,7 +7,6 @@ public class PlayerHealth : MonoBehaviour {
 	public float playerMaxHealth;
 	public GameObject deathEffects;
 	public AudioClip playerSound;
-
 	float currentHealth;
 
 	PlayerController controlMovement;
